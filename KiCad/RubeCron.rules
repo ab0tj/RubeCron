@@ -1,0 +1,132 @@
+
+(rules PCB RubeCron
+  (snap_angle 
+    fortyfive_degree
+  )
+  (autoroute_settings
+    (fanout off)
+    (autoroute on)
+    (postroute on)
+    (vias on)
+    (via_costs 50)
+    (plane_via_costs 5)
+    (start_ripup_costs 100)
+    (start_pass_no 29749)
+    (layer_rule F.Cu
+      (active on)
+      (preferred_direction horizontal)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 2.6)
+    )
+    (layer_rule B.Cu
+      (active on)
+      (preferred_direction vertical)
+      (preferred_direction_trace_costs 1.0)
+      (against_preferred_direction_trace_costs 1.6)
+    )
+  )
+  (rule
+    (width 203.2)
+    (clear 152.6)
+    (clear 101.6 (type smd_to_turn_gap))
+    (clear 38.2 (type smd_smd))
+  )
+  (padstack "Via[0-1]_889:508_um"
+    (shape
+      (circle F.Cu 889.0 0.0 0.0)
+    )
+    (shape
+      (circle B.Cu 889.0 0.0 0.0)
+    )
+    (attach off)
+  )
+  (padstack "Via[0-1]_889:0_um"
+    (shape
+      (circle F.Cu 889.0 0.0 0.0)
+    )
+    (shape
+      (circle B.Cu 889.0 0.0 0.0)
+    )
+    (attach off)
+  )
+  (via 
+    "Via[0-1]_889:508_um" "Via[0-1]_889:508_um" default
+  )
+  (via 
+    "Via[0-1]_889:0_um" "Via[0-1]_889:0_um" default
+  )
+  (via 
+    "Via[0-1]_889:508_um-kicad_default" "Via[0-1]_889:508_um" "kicad_default"
+  )
+  (via 
+    "Via[0-1]_889:0_um-kicad_default" "Via[0-1]_889:0_um" "kicad_default"
+  )
+  (via 
+    "Via[0-1]_889:508_um-Power" "Via[0-1]_889:508_um" Power
+  )
+  (via 
+    "Via[0-1]_889:0_um-Power" "Via[0-1]_889:0_um" Power
+  )
+  (via_rule
+    default "Via[0-1]_889:508_um"
+  )
+  (via_rule
+    "kicad_default" "Via[0-1]_889:508_um-kicad_default"
+  )
+  (via_rule
+    Power "Via[0-1]_889:508_um-Power"
+  )
+  (class default
+    (clearance_class default)
+    (via_rule default)
+    (rule
+      (width 203.2)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class "kicad_default"
+    /A0 /A1 /A10 /A11 /A12 /A13 /A14 /A15
+    /A2 /A3 /A4 /A5 /A6 /A7 /A8 /A9
+    /AD0 /AD1 /AD2 /AD3 /AD4 /AD5 /AD6 /AD7
+    /ALE /BAUD /BCLK /BRESET /CD0 /CD1 /CD2 /CD3
+    /CD4 /CD5 /CD6 /CD7 /CLK /D0 /D1 /D2
+    /D3 /D4 /D5 /D6 /D7 "/DAY_LE" "/HRS_LE" "/IDE_A0"
+    "/IDE_A1" "/IDE_A2" "/IDE_D0" "/IDE_D1" "/IDE_D10" "/IDE_D11" "/IDE_D12" "/IDE_D13"
+    "/IDE_D14" "/IDE_D15" "/IDE_D2" "/IDE_D3" "/IDE_D4" "/IDE_D5" "/IDE_D6" "/IDE_D7"
+    "/IDE_D8" "/IDE_D9" /INT0 /INT1 /INT2 /IO/~M "/MEM_A14" "/MEM_A15"
+    "/MEM_A16" "/MIN_LE" /RESET "/SEC_LE" "/~8155_CS" /~BNKSEL /~BRD /~BWR
+    "/~IDE_CS0" "/~IDE_CS1" "/~IDE_DIOR" "/~IDE_DIOW" "/~IDE_RST" "/~RAM_CS" /~RD "/~ROM_CS"
+    "/~UART_CS" "/~USB_RD" "/~USB_WR" /~WR "N-0000010" "N-00000100" "N-00000101" "N-00000102"
+    "N-00000103" "N-00000104" "N-00000105" "N-00000106" "N-00000107" "N-00000108" "N-00000109" "N-0000011"
+    "N-00000110" "N-00000111" "N-00000112" "N-00000113" "N-00000114" "N-00000115" "N-00000116" "N-00000117"
+    "N-00000118" "N-00000119" "N-0000012" "N-00000120" "N-00000121" "N-0000013" "N-0000014" "N-00000141"
+    "N-00000143" "N-00000145" "N-0000015" "N-00000158" "N-00000159" "N-0000016" "N-00000162" "N-00000163"
+    "N-00000169" "N-0000017" "N-00000175" "N-00000176" "N-00000177" "N-00000178" "N-00000179" "N-0000018"
+    "N-00000180" "N-0000019" "N-0000020" "N-0000021" "N-0000022" "N-0000023" "N-000003" "N-000004"
+    "N-0000048" "N-0000057" "N-0000061" "N-0000062" "N-0000063" "N-0000064" "N-0000065" "N-0000066"
+    "N-0000067" "N-0000068" "N-0000069" "N-0000070" "N-0000071" "N-0000072" "N-0000073" "N-000008"
+    "N-0000086" "N-0000087" "N-0000088" "N-0000089" "N-000009" "N-0000090" "N-0000091" "N-0000092"
+    "N-0000093" "N-0000094" "N-0000095" "N-0000096" "N-0000097" "N-0000098" "N-0000099"
+    (clearance_class "kicad_default")
+    (via_rule kicad_default)
+    (rule
+      (width 203.2)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+  (class Power
+    GND VCC
+    (clearance_class Power)
+    (via_rule Power)
+    (rule
+      (width 609.6)
+    )
+    (circuit 
+      (use_layer F.Cu B.Cu)
+    )
+  )
+)

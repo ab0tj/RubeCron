@@ -1,0 +1,13 @@
+#WAVEFORM
+#H Name     RC_GAL_IO;
+#H PartNo   00;
+#H Date     1/21/2017;
+#H Revision 01;
+#H Designer Alex;
+#H Company  AB0TJ;
+#H Assembly None;
+#H Location ;
+#H Device   g22v10;
+#H 
+#H 
+#H ORDER: A7, A6, A5, A4, A3, A2, A1, A0, IO, !RD, !BRD, !WR, !BWR, !8155_CS, !UART_CS, !USB_RD, !USB_WR, DAY_LE, HRS_LE, MIN_LE, SEC_LE;

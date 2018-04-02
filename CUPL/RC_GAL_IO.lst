@@ -1,0 +1,54 @@
+LISTING FOR LOGIC DESCRIPTION FILE: RC_GAL_IO.pld                    Page 1
+
+CUPL(WM): Universal Compiler for Programmable Logic
+Version 5.0a Serial# 60008009
+Copyright (c) 1983, 1998 Logical Devices, Inc.
+Created Sat Feb 25 15:25:09 2017
+
+  1:Name     RC_GAL_IO ;
+  2:PartNo   00 ;
+  3:Date     1/21/2017 ;
+  4:Revision 01 ;
+  5:Designer Alex ;
+  6:Company  AB0TJ ;
+  7:Assembly None ;
+  8:Location  ;
+  9:Device   g22v10 ;
+ 10:
+ 11:/* *************** INPUT PINS *********************/
+ 12:PIN [1..8]      = [A0..A7];     /* Address bus    */
+ 13:PIN 9   =  IO                     ; /* IO/Memory                       */ 
+ 14:PIN 10  =  !RD                    ; /* Read                            */ 
+ 15:PIN 11  =  !WR                    ; /* Write                           */ 
+ 16:
+ 17:/* *************** OUTPUT PINS *********************/
+ 18:PIN 16  =  SEC_LE                 ; /* Clock seconds latch             */ 
+ 19:PIN 17  =  MIN_LE                 ; /* Clock minutes latch             */ 
+ 20:PIN 18  =  HRS_LE                 ; /* Clock hours latch               */ 
+ 21:PIN 19  =  DAY_LE                 ; /* Clock day latch                 */ 
+ 22:PIN 20  =  !USB_RD                ; /* USB Module read                 */ 
+ 23:PIN 21  =  !USB_WR                ; /* USB Module write                */ 
+ 24:PIN 22  =  !UART_CS               ; /* Serial chip select              */ 
+ 25:PIN 23  =  !8155_CS               ; /* Parallel/timer chip select      */
+ 26:PIN 15  =  !BNKSEL                      ; /* Bank select port              */
+ 27:PIN 14  =  IDE_CTL                      ; /* Port for IDE control lines      */  
+ 28:
+ 29:/* ***LOGIC EQUATIONS*** */
+ 30:CLK_SEL = IO & WR & !A7 & A6 & !A5 & A4 & !A3 & !A2; /* Write to ports 50-53h */
+ 31:SEC_LE = CLK_SEL & !A1 & !A0; /* Port 50h */
+ 32:MIN_LE = CLK_SEL & !A1 & A0;  /* Port 51h */
+ 33:HRS_LE = CLK_SEL & A1 & !A0;  /* Port 52h */
+ 34:DAY_LE = CLK_SEL & A1 & A0;   /* Port 53h */
+ 35:USB_SEL = IO & !A7 & !A6 & A5 & A4 & ![A3..A0]:&; /* Port 30h selected */
+ 36:USB_RD = USB_SEL & RD; /* Read from USB port */
+ 37:USB_WR = USB_SEL & WR; /* Write to USB port */
+ 38:UART_CS = IO & !A7 & !A6 & A5 & ![A4..A1]:&; /* Read or write to 20 or 21h */
+ 39:8155_CS = IO & ![A7..A3]:&; /* Read or write to 00-07h */
+ 40:BNKSEL = IO & WR & !A7 & A6 & ![A5..A0]:&; /* Write to 40h */
+ 41:IDE_CTL = IO & WR & ![A7..A5]:& & A4 & ![A3..A0]:&; /* Write to 10h */
+ 42:
+
+
+
+Jedec Fuse Checksum       (6bc9)
+Jedec Transmit Checksum   (8bb1)
