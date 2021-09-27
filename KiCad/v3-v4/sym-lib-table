@@ -1,0 +1,8 @@
+(sym_lib_table
+  (lib (name intel-8xxx)(type Legacy)(uri ${N8VEM}/intel-8xxx.lib)(options "")(descr ""))
+  (lib (name ds1813)(type Legacy)(uri ${N8VEM}/ds1813.lib)(options "")(descr ""))
+  (lib (name tp3465v)(type Legacy)(uri ${N8VEM}/tp3465v.lib)(options "")(descr ""))
+  (lib (name 22v10)(type Legacy)(uri ${N8VEM}/22v10.lib)(options "")(descr ""))
+  (lib (name 26c92)(type Legacy)(uri ${N8VEM}/26c92.lib)(options "")(descr ""))
+  (lib (name RubeCron-r3-rescue)(type Legacy)(uri ${KIPRJMOD}/RubeCron-r3-rescue.lib)(options "")(descr ""))
+)

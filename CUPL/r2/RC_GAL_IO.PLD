@@ -1,0 +1,41 @@
+Name     RC_GAL_IO ;
+PartNo   00 ;
+Date     1/21/2017 ;
+Revision 01 ;
+Designer Alex ;
+Company  AB0TJ ;
+Assembly None ;
+Location  ;
+Device   g22v10 ;
+
+/* *************** INPUT PINS *********************/
+PIN [1..8]	= [A0..A7];	/* Address bus 	  */
+PIN 9   =  IO                     ; /* IO/Memory                       */ 
+PIN 10  =  !RD                    ; /* Read                            */ 
+PIN 11  =  !WR                    ; /* Write                           */ 
+
+/* *************** OUTPUT PINS *********************/
+PIN 16  =  SEC_LE                 ; /* Clock seconds latch             */ 
+PIN 17  =  MIN_LE                 ; /* Clock minutes latch             */ 
+PIN 18  =  HRS_LE                 ; /* Clock hours latch               */ 
+PIN 19  =  DAY_LE                 ; /* Clock day latch                 */ 
+PIN 20  =  !USB_RD                ; /* USB Module read                 */ 
+PIN 21  =  !USB_WR                ; /* USB Module write                */ 
+PIN 22  =  !UART_CS               ; /* Serial chip select              */ 
+PIN 23  =  !8155_CS               ; /* Parallel/timer chip select      */
+PIN 15  =  !BNKSEL			; /* Bank select port		   */
+PIN 14  =  IDE_CTL			; /* Port for IDE control lines      */  
+
+/* ***LOGIC EQUATIONS*** */
+CLK_SEL = IO & WR & !A7 & A6 & !A5 & A4 & !A3 & !A2; /* Write to ports 50-53h */
+SEC_LE = CLK_SEL & !A1 & !A0; /* Port 50h */
+MIN_LE = CLK_SEL & !A1 & A0;  /* Port 51h */
+HRS_LE = CLK_SEL & A1 & !A0;  /* Port 52h */
+DAY_LE = CLK_SEL & A1 & A0;   /* Port 53h */
+USB_SEL = IO & !A7 & !A6 & A5 & A4 & ![A3..A0]:&; /* Port 30h selected */
+USB_RD = USB_SEL & RD; /* Read from USB port */
+USB_WR = USB_SEL & WR; /* Write to USB port */
+UART_CS = IO & !A7 & !A6 & A5 & ![A4..A1]:&; /* Read or write to 20 or 21h */
+8155_CS = IO & ![A7..A3]:&; /* Read or write to 00-07h */
+BNKSEL = IO & WR & !A7 & A6 & ![A5..A0]:&; /* Write to 40h */
+IDE_CTL = IO & WR & ![A7..A5]:& & A4 & ![A3..A0]:&; /* Write to 10h */

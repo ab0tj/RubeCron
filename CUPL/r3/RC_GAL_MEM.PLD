@@ -1,0 +1,49 @@
+Name     RC_GAL_MEM ;
+PartNo   U17 ;
+Date     8/22/2020 ;
+Revision 03 ;
+Designer Alex ;
+Company  AB0TJ ;
+Assembly None ;
+Location  ;
+Device   g22v10 ;
+
+/* *************** INPUT PINS *********************/ 
+PIN 1 = !BANK              ; /* Write to bank port */
+PIN 2 = !RST               ; /* System reset */
+PIN 3 = D0                 ; /* D0 from bus */
+PIN [4..5] = [A14..A15]     ; /* A14 and A15 from bus */
+/* PIN [6..7] = [BA14..BA15]   ; /* A14 and A15 from page registers */
+PIN 8 = !ROM                ; /* ROM select */
+PIN 6 = WP                  ; /* Page is write protected */
+PIN 7 = COPY               ; /* RD = ROM, WR = RAM */
+PIN 9 = !MREQ              ; /* CPU is performing a memory operation */
+PIN 10 = !WR                ; /* CPU is writing to bus */
+
+/* *************** OUTPUT PINS *********************/
+PIN 23 = MA14               ; /* Memory A14 */
+PIN 22 = MA15               ; /* Memory A15 */
+PIN 21 = MA16;
+PIN 20 = MA17;
+PIN 19 = MA18;
+PIN 18 = !MMU               ; /* MMU enabled */
+PIN 17 = !ROM_CS            ; /* Flash Chip Select */
+PIN 16 = !RAM_CS            ; /* SRAM Chip Select */
+PIN 15 = !MWR               ; /* Memory write strobe */
+
+/* *** LOGIC EQUATIONS *** */
+MA14 = A14;
+MA14.oe = !MMU;
+MA15 = A15;
+MA15.oe = !MMU;
+MMU.d = D0;
+MMU.ar = RST;
+ROM_CS = (MREQ & !MMU & !A14 & !A15) # (MREQ & MMU & ROM);
+RAM_CS = (MREQ & !MMU & (A14 # A15)) # (MREQ & MMU & !ROM);
+MWR = (WR & MMU & !WP) # (WR & !MMU);
+MA16 = 'b'0;
+MA16.oe = !MMU;
+MA17 = 'b'0;
+MA17.oe = !MMU;
+MA18 = 'b'0;
+MA18.oe = !MMU;

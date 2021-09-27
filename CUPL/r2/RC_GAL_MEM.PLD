@@ -1,0 +1,48 @@
+Name     RC_GAL_MEM ;
+PartNo   01 ;
+Date     1/21/2017 ;
+Revision 01 ;
+Designer Alex ;
+Company  AB0TJ ;
+Assembly None ;
+Location  ;
+Device   g22v10;
+
+/* *************** INPUT PINS *********************/ 
+PIN 1 = BNKSEL			; /* Write to bank select port	  */
+PIN [2..5] = [D0..D3]		; /* Mem config bits			  */
+PIN 6  =  A14                    	; /* A14 line                        */ 
+PIN 7  =  A15				; /* A15 line				  */
+PIN 8  = !MEM                    	; /* IO/M line                       */ 
+PIN 9	= !RD				; /* Read signal from CPU		  */
+PIN 10 = !WR				; /* Write signal from CPU		  */
+PIN 11 = RESET			; /* System is resetting		  */
+
+/* *************** OUTPUT PINS *********************/
+PIN 23  = !RAM_CS                 ; /* RAM chip select                 */  
+PIN 22  = !ROM_CS                 ; /* ROM chip select                 */
+PIN 21  = MEM_A14			; /* A14 to memory chips		  */ 
+PIN 20  = MEM_A15                 ; /* A15 to memory chips             */ 
+PIN 19  = MEM_A16                 ; /* A16 to memory chips             */
+PIN 18  = !BRD			; /* Buffered Read signal	         */
+PIN 17  = !BWR			; /* Buffered Write signal		  */
+PIN 16  = CFG0 			; /* Latched D0 value		  */
+PIN 15  = CFG1 			; /* Latched D1 value		  */
+PIN 14  = CFG2			; /* Latched D2 value		  */
+
+/* *** LOGIC EQUATIONS *** */
+CFG0.D = D0;
+CFG0.AR = RESET;
+CFG1.D = D1;
+CFG1.AR = RESET;
+CFG2.D = D2;
+CFG2.AR = RESET;
+CFG3.D = D3;
+CFG3.AR = RESET;
+RAM_CS	= MEM & (A15 # CFG2);
+MEM_A14 = A14;
+MEM_A15 = !A15 & CFG0;
+MEM_A16 = !A15 & CFG1;
+ROM_CS = MEM & !A15 & !CFG2;
+BRD = RD & !RESET;
+BWR = WR & !RESET;

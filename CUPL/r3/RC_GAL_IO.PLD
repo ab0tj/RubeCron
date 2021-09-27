@@ -1,0 +1,41 @@
+Name     RC_GAL_IO ;
+PartNo   U19 ;
+Date     8/22/2020 ;
+Revision 03 ;
+Designer Alex ;
+Company  AB0TJ ;
+Assembly None ;
+Location  ;
+Device   g22v10 ;
+
+/* *************** INPUT PINS *********************/
+PIN [1..8] = [A7..A0]             ; /* Address bus */
+PIN 9 = !RD                       ; /* Read strobe */
+PIN 10 = !WR                      ; /* Write strobe */
+PIN 11 = !IO                      ; /* IO Request */
+PIN 13 = !M1                      ; /* M1 from CPU */  
+
+/* *************** OUTPUT PINS *********************/
+PIN 14  =  SEC_LE                 ; /* Clock seconds latch             */ 
+PIN 15  =  MIN_LE                 ; /* Clock minutes latch             */ 
+PIN 16  =  HRS_LE                 ; /* Clock hours latch               */ 
+PIN 17  =  DAY_LE                 ; /* Clock day latch                 */
+PIN 18  =  !SPI_CS                ; /* SPI controller chip select      */
+PIN 19  =  !UART_CS               ; /* Serial chip select              */
+PIN 20  =  !PIC_CS        	   	  ; /* Interrupt controller CS         */
+PIN 21  =  !PAGE                  ; /* Page register select            */
+PIN 22  =  !BANK                  ; /* Bank enable ports               */
+PIN 23  =  !INTA                  ; /* Interrupt acknowledge cycle     */
+
+/* ***LOGIC EQUATIONS*** */
+CLK_SEL = IO & WR & !A7 & A6 & !A5 & A4 & !A3 & !A2; /* Write to ports 50-53h */
+SEC_LE = CLK_SEL & !A1 & !A0; /* Port 50h */
+MIN_LE = CLK_SEL & !A1 & A0;  /* Port 51h */
+HRS_LE = CLK_SEL & A1 & !A0;  /* Port 52h */
+DAY_LE = CLK_SEL & A1 & A0;   /* Port 53h */
+UART_CS = IO & !A7 & !A6 & A5 & !A4; /* Read or write to 20-2Fh */
+PAGE = IO & WR & !A7 & A6 & !A5 & !A4 & !A3 & !A2; /* Write to 40-43h */
+BANK = IO & WR & !A7 & A6 & !A5 & !A4 & A3 & !A2 & !A1 & !A0; /* Write to 48h */
+SPI_CS = IO & ![A7..A5]:& & A4; /* Ports 10-1Fh */
+PIC_CS = IO & !A7 & !A6 & A5 & A4 & !A3 & !A2 & !A1; /* Ports 30-31h */
+INTA = IO & M1;

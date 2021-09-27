@@ -1,0 +1,45 @@
+;r RMAC.COM
+;r LINK.COM
+;r GENCPM.COM
+;
+;
+r GENCPM.DAT
+;
+r Z80.LIB
+r CPM3.LIB
+r MODEBAUD.LIB
+;
+r BIOSKRNL.ASM
+r BNKBDOS3.SPR
+r RESBDOS3.SPR
+;
+r SCB3.ASM
+r RCHARIO3.ASM
+r MOVE3.ASM
+;
+r rboot3.asm
+r rdrvtbl3.asm
+r rSD3.ASM
+;
+RMAC BIOSKRNL.ASM
+RMAC SCB3.ASM
+RMAC RCHARIO3.ASM
+RMAC MOVE3.ASM
+;
+RMAC RBOOT3.ASM
+RMAC RDRVTBL3.ASM
+RMAC RSD3.ASM
+;
+; A: through C: are 8MB hard drive images 
+;
+LINK BNKBIOS3[B]=BIOSKRNL,SCB3,RBOOT3,RCHARIO3,MOVE3,RDRVTBL3,RSD3
+;
+;Note GENCPM.DAT holds previous values
+;This will be a Banked version. 
+;
+gencpm auto
+;
+w cpm3.sys B
+;
+; Note this version is BANKED and for a RubeCron Z80 Board
+
